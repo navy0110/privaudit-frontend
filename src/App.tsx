@@ -120,10 +120,10 @@ export default function App() {
                   </select>
                 </div>
                 <button className="btn-primary" onClick={requestAccess} disabled={loading}>
-                  {loading ? "⏳ Verificando ZK-Proof..." : "🔍 Solicitar Acceso"}
+                  {loading ? "⏳ Verifying ZK-Proof..." : "🔍 Request Access"}
                 </button>
                 {zkStatus === "verifying" && <div className="zk-box verifying"><div className="spinner" /> Generating ZK proof... Your identity will not be revealed.</div>}
-                {zkStatus === "approved" && <div className="zk-box approved">✅ ZK-Proof verified — AUTHORIZED access<br /><small>Hash recorded on blockchain.</small><div className="resource-content">📄 {selectedResource.name}: [DATOS CONFIDENCIALES]</div></div>}
+                {zkStatus === "approved" && <div className="zk-box approved">✅ ZK-Proof verified — AUTHORIZED access<br /><small>Hash recorded on blockchain.</small><div className="resource-content">📄 {selectedResource.name}: [CONFIDENTIAL DATA]</div></div>}
                 {zkStatus === "denied" && <div className="zk-box denied">❌ Insufficient level — Required {selectedResource.level}<br /><small>Attempt recorded on blockchain.</small></div>}
               </div>
             )}
