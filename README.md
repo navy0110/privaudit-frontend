@@ -1,75 +1,36 @@
-# React + TypeScript + Vite
+# 🔐 PrivAudit: ZK-Access Control & Identity Verification
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![Base Sepolia](https://img.shields.io/badge/Network-Base%20Sepolia-blue)
+![Solidity](https://img.shields.io/badge/Solidity-%5E0.8.20-lightgrey)
+![React](https://img.shields.io/badge/Frontend-React%20%2B%20Vite-61DAFB)
+![License](https://img.shields.io/badge/License-MIT-green)
 
-Currently, two official plugins are available:
+**PrivAudit** is a decentralized platform designed for immutable auditing and secure access management of confidential files. By combining **Zero-Knowledge Proof concepts (ERC-8004)** with **Self Protocol**, PrivAudit ensures that auditors are verified through real-world digital identities (DIDs) without compromising sensitive personal data.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## 🚀 Key Features
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+* **🕵️ Agent B (Requester):** A specialized interface for auditors to request access to sensitive resources based on hierarchical roles (**Junior, Senior, Director**).
+* **📋 Company A (Immutable Audit):** A transparent, tamper-proof log hosted on **Base Sepolia** that records every access attempt (Authorized or Denied).
+* **🛂 Real Identity via Self Protocol:** Replaces simulations with actual Digital Identity verification, linking a verified DID to the auditor's wallet.
+* **⚡ ZK-Proof Workflow:** A privacy-first logic that validates permissions and credentials without revealing the user's full identity until strictly required by compliance.
 
-Note: This will impact Vite dev & build performances.
+---
 
-## Expanding the ESLint configuration
+## 🛠️ Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### **Blockchain & Identity**
+* **Network:** [Base Sepolia](https://base.org/) (Ethereum Layer 2).
+* **Smart Contracts:** Solidity 0.8.20.
+* **Framework:** [Hardhat](https://hardhat.org/) (Compilation, Testing, and Deployment).
+* **Identity Layer:** [Self Protocol](https://self.xyz/) (On-chain Verifiers and DIDs).
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### **Frontend & UI**
+* **Framework:** [React](https://reactjs.org/) + [Vite](https://vitejs.dev/) for high-performance rendering.
+* **Language:** TypeScript (for type safety and robust code).
+* **Web3 Library:** [Ethers.js v6](https://docs.ethers.org/v6/) for blockchain interaction.
+* **Styling:** Custom CSS with a focus on dark mode and readability.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### **AI Integration & Hosting**
+* **Intelligence:** [Venice AI API](https://venice.ai/)
