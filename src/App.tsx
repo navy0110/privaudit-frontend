@@ -11,9 +11,9 @@ const ABI = [
 ];
 
 const RESOURCES = [
-  { id: "EXP-001", name: "Expediente Financiero Q1", level: "Senior" },
-  { id: "EXP-002", name: "Reporte de Auditoría 2024", level: "Senior" },
-  { id: "EXP-003", name: "Datos de Empleados", level: "Director" },
+  { id: "EXP-001", name: "Financial File Q1", level: "Senior" },
+  { id: "EXP-002", name: "Audit Report 2024", level: "Senior" },
+  { id: "EXP-003", name: "Employee Data", level: "Director" },
 ];
 
 type ZkStatus = "verifying" | "approved" | "denied" | null;
@@ -33,7 +33,7 @@ export default function App() {
 
   async function connectWallet() {
     const w = window as any;
-    if (!w.ethereum) return alert("Instala MetaMask");
+    if (!w.ethereum) return alert("Instal MetaMask");
     const provider = new ethers.BrowserProvider(w.ethereum);
     await provider.send("eth_requestAccounts", []);
     const signer = await provider.getSigner();
@@ -79,32 +79,32 @@ export default function App() {
         <div className="logo">🔐 PrivAudit</div>
         <div className="subtitle">Zero-Knowledge Access Control · Base Sepolia</div>
         {!wallet
-          ? <button className="btn-primary" onClick={connectWallet}>Conectar Wallet</button>
+          ? <button className="btn-primary" onClick={connectWallet}>Connect Wallet</button>
           : <div className="wallet-badge">✅ {shortAddr(wallet)}</div>
         }
       </header>
 
       {!wallet && (
         <div className="hero">
-          <h1>Auditoría sin exposición de identidad</h1>
+          <h1>Non-identity audit</h1>
           <p>ZK-Proofs + Base Sepolia + ERC-8004</p>
-          <button className="btn-primary big" onClick={connectWallet}>🚀 Conectar Wallet</button>
+          <button className="btn-primary big" onClick={connectWallet}>🚀 Connect Wallet</button>
         </div>
       )}
 
       {wallet && (
         <>
           <div className="tabs">
-            <button className={tab === "agent" ? "tab active" : "tab"} onClick={() => setTab("agent")}>🕵️ Agente B — Solicitar Acceso</button>
-            <button className={tab === "audit" ? "tab active" : "tab"} onClick={() => setTab("audit")}>📋 Empresa A — Auditoría ({logs.length})</button>
+            <button className={tab === "agent" ? "tab active" : "tab"} onClick={() => setTab("agent")}>🕵️ Agente B — Request Access</button>
+            <button className={tab === "audit" ? "tab active" : "tab"} onClick={() => setTab("audit")}>📋 Company A — Audit ({logs.length})</button>
           </div>
 
           <div className="panel">
             {tab === "agent" && (
               <div>
-                <h2>Solicitar Acceso a Expediente</h2>
+                <h2>Request Access to File</h2>
                 <div className="form-group">
-                  <label>Tu Nivel (ERC-8004)</label>
+                  <label>Your level (ERC-8004)</label>
                   <select value={agentLevel} onChange={(e) => { setAgentLevel(e.target.value); setZkStatus(null); }}>
                     <option>Junior</option>
                     <option>Senior</option>
@@ -112,7 +112,7 @@ export default function App() {
                   </select>
                 </div>
                 <div className="form-group">
-                  <label>Expediente a Consultar</label>
+                  <label>File to be Consulted</label>
                   <select value={selectedIdx} onChange={(e) => { setSelectedIdx(Number(e.target.value)); setZkStatus(null); }}>
                     {RESOURCES.map((r, i) => (
                       <option key={r.id} value={i}>{r.id} — {r.name} (requiere: {r.level})</option>
@@ -122,20 +122,20 @@ export default function App() {
                 <button className="btn-primary" onClick={requestAccess} disabled={loading}>
                   {loading ? "⏳ Verificando ZK-Proof..." : "🔍 Solicitar Acceso"}
                 </button>
-                {zkStatus === "verifying" && <div className="zk-box verifying"><div className="spinner" /> Generando prueba ZK... Tu identidad no será revelada.</div>}
-                {zkStatus === "approved" && <div className="zk-box approved">✅ ZK-Proof verificado — Acceso AUTORIZADO<br /><small>Hash registrado en blockchain.</small><div className="resource-content">📄 {selectedResource.name}: [DATOS CONFIDENCIALES]</div></div>}
-                {zkStatus === "denied" && <div className="zk-box denied">❌ Nivel insuficiente — Se requiere {selectedResource.level}<br /><small>Intento registrado en blockchain.</small></div>}
+                {zkStatus === "verifying" && <div className="zk-box verifying"><div className="spinner" /> Generating ZK proof... Your identity will not be revealed.</div>}
+                {zkStatus === "approved" && <div className="zk-box approved">✅ ZK-Proof verified — AUTHORIZED access<br /><small>Hash recorded on blockchain.</small><div className="resource-content">📄 {selectedResource.name}: [DATOS CONFIDENCIALES]</div></div>}
+                {zkStatus === "denied" && <div className="zk-box denied">❌ Insufficient level — Required {selectedResource.level}<br /><small>Attempt recorded on blockchain.</small></div>}
               </div>
             )}
 
             {tab === "audit" && (
               <div>
                 <div className="audit-header">
-                  <h2>Log de Auditoría Inmutable</h2>
-                  <button className="btn-secondary" onClick={() => contract && loadLogs(contract)}>🔄 Actualizar</button>
+                  <h2>Immutable Audit Log</h2>
+                  <button className="btn-secondary" onClick={() => contract && loadLogs(contract)}>🔄 Upload</button>
                 </div>
                 {logs.length === 0
-                  ? <p className="empty">No hay registros aún.</p>
+                  ? <p className="empty">There are no records yet.</p>
                   : <div className="log-list">
                     {logs.map((log, i) => (
                       <div key={i} className={`log-item ${log.authorized ? "auth" : "denied"}`}>
